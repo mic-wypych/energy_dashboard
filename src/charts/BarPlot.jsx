@@ -1,18 +1,41 @@
+import {useRef} from 'react'
+import {scaleBand} from 'd3'
 import {AxisBand} from '../components/BandAxis.jsx'
 import {AxisLeft} from '../components/LeftAxis.jsx'
 import {useDimensions} from '../components/UseDimensions.jsx'
-import {useRef} from 'react'
+import {scaleY} from '../components/scaleY.jsx'
 
-export const BarPlot = ({boundsWidth, boundsHeight, bars, bandScale, yScale, MARGIN}) => {
+export const BarPlot = ({data, MARGIN}) => {
   const chartRef = useRef(null);
-  const chartSize = useDimensions(chartRef);
+  const {width} = useDimensions(chartRef);
+  const height = width;
 
-  const height = chartSize.width;
+  const boundsWidth = width - MARGIN.left - MARGIN.right;
+  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
+
+  const bandScale = scaleBand()
+    .domain(data.map(d => d.x))
+    .range([0, boundsWidth])
+    .padding(0.4);
+
+  const yScale = scaleY([0, ...data.map(d => d.y)], 0, boundsHeight);
+
+  const bars = data.map((d, i) => (
+    <rect
+      key={i}
+      x={bandScale(d.x)}
+      y={yScale(d.y)}
+      width={bandScale.bandwidth()}
+      height={boundsHeight - yScale(d.y)}
+      rx={12}
+      fill="#21eebeff"
+    />
+  ));
 
   return (
-    <div ref={chartRef} style={{ width: "100%" }}>
+    <div ref={chartRef} style={{width: "100%"}}>
       <BaseBarPlot
-        width={chartSize.width}
+        width={width}
         height={height}
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
@@ -25,17 +48,13 @@ export const BarPlot = ({boundsWidth, boundsHeight, bars, bandScale, yScale, MAR
   );
 };
 
-const BaseBarPlot = ({width, height, boundsWidth, boundsHeight, bars, bandScale, yScale, MARGIN}) => {
-
-    return <svg width = {width} height = {height}>
-          <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
-          <g
-          width={boundsWidth}
-          height={boundsHeight}
-          transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
-          {bars}
-          <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
-          <AxisBand bandScale={bandScale} yPos={boundsHeight} />
-           </g>
-        </svg>
-}
+const BaseBarPlot = ({width, height, boundsHeight, bars, bandScale, yScale, MARGIN}) => (
+  <svg width={width} height={height}>
+    <rect width={width} height={height} fill="#FFFFFF" rx={4} />
+    <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
+      {bars}
+      <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10} />
+      <AxisBand bandScale={bandScale} yPos={boundsHeight} />
+    </g>
+  </svg>
+);
