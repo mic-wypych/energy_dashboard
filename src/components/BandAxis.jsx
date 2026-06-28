@@ -17,7 +17,7 @@ export const AxisBand = ({ bandScale, yPos }) => {
 
       {/* Ticks and labels */}
       {bandScale.domain().map((value) => (
-        <g key={value} transform={`translate(${bandScale(value) + bandScale.bandwidth() / 4}, ${yPos})`}>
+        <g key={value} transform={`translate(${bandScale(value) + bandScale.bandwidth() / 2}, ${yPos})`}>
           <line y2={TICK_LENGTH} stroke="currentColor" />
           <text
             style={{

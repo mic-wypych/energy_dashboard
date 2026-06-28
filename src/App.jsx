@@ -41,7 +41,7 @@ function App() {
   const bandScale = scaleBand()
   .domain(data.map(d => d.x))
   .range([0, boundsWidth])
-  .padding(0.1)
+  .padding(0.4)
 
   const allCircles = data.map((d, i) => (
         <circle
@@ -61,7 +61,7 @@ function App() {
           key={i}
           x={bandScale(d.x)}
           y={barYScale(d.y)}
-          width={boundsWidth / 10}
+          width={bandScale.bandwidth()}
           height={boundsHeight - barYScale(d.y)}
           rx={12}
           fill="#21eebeff"
@@ -82,7 +82,7 @@ function App() {
       height={boundsHeight}
       transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
       {allCircles}
-      <AxisBottom xScale={xScale} pixelsPerTick={60} yPos={boundsHeight + 10}/>
+      <AxisBottom xScale={xScale} pixelsPerTick={60} yPos={boundsHeight}/>
       <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
       </g>
     </svg>
