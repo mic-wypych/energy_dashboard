@@ -44,8 +44,8 @@ function App() {
   const allBars = data.map((d, i) => (
         <rect
           key={i}
-          x={bandScale(d.x)}
-          y={yScale(d.y)}
+          x={bandScale(d.x) + padding / 2}
+          y={yScale(d.y) - padding}
           width={height / 10}
           height={(height) - yScale(d.y)}
           rx={12}
