@@ -84,7 +84,7 @@ function App() {
     <h1>Test dashboard</h1>
   </div>
   <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', gap: '20px'}}>
-    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
+    <div style={{flex: `1 1 ${width}px`, minWidth: `${width}px`, maxWidth: `${width + 20}px`}}>
       <ScatterPlot
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
@@ -94,7 +94,7 @@ function App() {
         MARGIN={MARGIN}
       />
     </div>
-    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
+    <div style={{flex: `1 1 ${width}px`, minWidth: `${width}px`, maxWidth: `${width + 20}px`}}>
       <BarPlot
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
@@ -104,7 +104,7 @@ function App() {
         MARGIN={MARGIN}
       />
     </div>
-    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
+    <div style={{flex: `1 1 ${width}px`, minWidth: `${width}px`, maxWidth: `${width + 20}px`}}>
       <LinePlot
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
