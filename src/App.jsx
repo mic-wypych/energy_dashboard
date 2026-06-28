@@ -8,6 +8,7 @@ function App() {
   /* build constants*/
   const width = 800
   const height = 800
+  const padding = 60
 
   /* data */
 
@@ -21,16 +22,10 @@ function App() {
 
   /* build scales*/
 
-  const xScale = scaleX(data.map(d => d.x))
-  const yScale = scaleY(data.map(d => d.y))
+  const xScale = scaleX(data.map(d => d.x), padding, width - padding)
+  const yScale = scaleY(data.map(d => d.y), padding, height - padding)
 
-
-  /* build the plot*/
-
-  return <div display = "Flex" justifyContent = "center" alignItems = "center">
-      <svg width = {width} height = {height}>
-
-    {data.map((d, i) => (
+  const allCircles = data.map((d, i) => (
         <circle
           key={i}
           cx={xScale(d.x)}  // data value → pixel position
@@ -38,8 +33,15 @@ function App() {
           r={6}
           fill="#21eebeff"
         />
-      ))}
-  </svg>
+      ))
+
+  /* build the plot*/
+
+  return <div display = "Flex" justifyContent = "center" alignItems = "center">
+      <svg width = {width} height = {height}>
+      <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
+      {allCircles}
+    </svg>
 
   </div>
   
