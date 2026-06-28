@@ -7,8 +7,8 @@ import {scaleY} from './components/scaleY.jsx'
 function App() {
 
   /* build constants*/
-  const width = 200
-  const height = 200
+  const width = 400
+  const height = 400
   const padding = 60
 
   /* data */
@@ -46,7 +46,7 @@ function App() {
           key={i}
           x={bandScale(d.x)}
           y={yScale(d.y)}
-          width={40}
+          width={height / 10}
           height={(height) - yScale(d.y)}
           rx={12}
           fill="#21eebeff"
