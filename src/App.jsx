@@ -3,10 +3,10 @@ import {scaleBand, line} from 'd3'
 import './App.css'
 import {scaleX} from './components/scaleX.jsx'
 import {scaleY} from './components/scaleY.jsx'
-import {AxisBottom} from './components/BottomAxis.jsx'
-import {AxisLeft} from './components/LeftAxis.jsx'
-import {AxisBand} from './components/BandAxis.jsx'
-import {UseDimensions} from './components/UseDimenstions.jsx'
+import {useDimensions} from './components/UseDimensions.jsx'
+import {BarPlot} from './charts/BarPlot.jsx'
+import {LinePlot} from './charts/LinePlot.jsx'
+import {ScatterPlot} from './charts/ScatterPlot.jsx'
 
 function App() {
 
@@ -84,41 +84,37 @@ function App() {
     <h1>Test dashboard</h1>
   </div>
   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px'}}>
-      <svg width = {width} height = {height}>
-      <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
-      <g
-      width={boundsWidth}
-      height={boundsHeight}
-      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
-      {allCircles}
-      <AxisBottom xScale={xScale} pixelsPerTick={60} yPos={boundsHeight}/>
-      <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
-      </g>
-    </svg>
+      <ScatterPlot
+        width={width}
+        height={height}
+        boundsWidth={boundsWidth}
+        boundsHeight={boundsHeight}
+        circles={allCircles}
+        xScale={xScale}
+        yScale={yScale}
+        MARGIN={MARGIN}
+      />  
+    <BarPlot
+      width={width}
+      height={height}
+      boundsWidth={boundsWidth}
+      boundsHeight={boundsHeight}
+      bars={allBars}
+      bandScale={bandScale}
+      yScale={barYScale}
+      MARGIN={MARGIN}
+    />
 
-     <svg width = {width} height = {height}>
-      <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
-      <g
-      width={boundsWidth}
-      height={boundsHeight}
-      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
-      {allBars}
-      <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
-      <AxisBand bandScale={bandScale} yPos={boundsHeight} />
-       </g>
-    </svg>
-
-     <svg width = {width} height = {height}>
-      <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
-      <g
-      width={boundsWidth}
-      height={boundsHeight}
-      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
-      <path d={linePath} fill="none" stroke="#21eebeff" strokeWidth={2} />
-      <AxisBottom xScale={xScale} pixelsPerTick={60} yPos={boundsHeight}/>
-      <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
-      </g>
-    </svg>
+      <LinePlot
+        width={width}
+        height={height}
+        boundsWidth={boundsWidth}
+        boundsHeight={boundsHeight}
+        linePath={linePath}
+        xScale={xScale}
+        yScale={yScale}
+        MARGIN={MARGIN}
+      />
   </div>
   </>
   
