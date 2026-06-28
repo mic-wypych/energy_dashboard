@@ -6,6 +6,7 @@ import {scaleY} from './components/scaleY.jsx'
 import {AxisBottom} from './components/BottomAxis.jsx'
 import {AxisLeft} from './components/LeftAxis.jsx'
 import {AxisBand} from './components/BandAxis.jsx'
+import {UseDimensions} from './components/UseDimenstions.jsx'
 
 function App() {
 
