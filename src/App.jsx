@@ -67,7 +67,11 @@ function App() {
 
   /* build the plot*/
 
-  return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px'}}>
+  return <>
+  <div>
+    <h1>Test dashboard</h1>
+  </div>
+  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px'}}>
       <svg width = {width} height = {height}>
       <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
       <g
@@ -88,6 +92,7 @@ function App() {
        </g>
     </svg>
   </div>
+  </>
   
 
 
