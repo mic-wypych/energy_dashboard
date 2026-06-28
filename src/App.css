@@ -161,6 +161,19 @@
   }
 }
 
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, -120%);
+  background: white;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
 .ticks {
   position: relative;
   width: 100%;
