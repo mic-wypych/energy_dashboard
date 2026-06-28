@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {scaleBand} from 'd3'
+import {scaleBand, line} from 'd3'
 import './App.css'
 import {scaleX} from './components/scaleX.jsx'
 import {scaleY} from './components/scaleY.jsx'
@@ -68,6 +68,14 @@ function App() {
         />
       ))
 
+  const lineGenerator = line()
+    .x(d => xScale(d.x))
+    .y(d => yScale(d.y))
+
+  const linePath = lineGenerator([...data].sort((a, b) => a.x - b.x))
+
+  
+
   /* build the plot*/
 
   return <>
@@ -97,6 +105,18 @@ function App() {
       <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
       <AxisBand bandScale={bandScale} yPos={boundsHeight} />
        </g>
+    </svg>
+
+     <svg width = {width} height = {height}>
+      <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
+      <g
+      width={boundsWidth}
+      height={boundsHeight}
+      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
+      <path d={linePath} fill="none" stroke="#21eebeff" strokeWidth={2} />
+      <AxisBottom xScale={xScale} pixelsPerTick={60} yPos={boundsHeight}/>
+      <AxisLeft yScale={yScale} pixelsPerTick={60} xPos={-10}/>
+      </g>
     </svg>
   </div>
   </>
