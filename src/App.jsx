@@ -11,6 +11,16 @@ function App() {
   const height = 400
   const padding = 60
 
+  const MARGIN = {
+  top: 40,
+  right: 40,
+  bottom: 40,
+  left: 40
+  }
+
+  const boundsWidth = width - MARGIN.right - MARGIN.left;
+  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
+
   /* data */
 
   const data = [
@@ -23,11 +33,11 @@ function App() {
 
   /* build scales*/
 
-  const xScale = scaleX(data.map(d => d.x), padding, width - padding)
-  const yScale = scaleY(data.map(d => d.y), padding, height - padding)
+  const xScale = scaleX(data.map(d => d.x), 0, boundsWidth)
+  const yScale = scaleY(data.map(d => d.y), 0, boundsHeight)
   const bandScale = scaleBand()
   .domain(data.map(d => d.x))
-  .range([0, width])
+  .range([0, boundsWidth])
   .padding(0.1)
 
   const allCircles = data.map((d, i) => (
@@ -41,13 +51,15 @@ function App() {
       ))
 
 
+  const barYScale = scaleY([0, ...data.map(d => d.y)], 0, boundsHeight)
+
   const allBars = data.map((d, i) => (
         <rect
           key={i}
-          x={bandScale(d.x) + padding / 2}
-          y={yScale(d.y) - padding}
-          width={height / 10}
-          height={(height) - yScale(d.y)}
+          x={bandScale(d.x)}
+          y={barYScale(d.y)}
+          width={boundsWidth / 10}
+          height={boundsHeight - barYScale(d.y)}
           rx={12}
           fill="#21eebeff"
         />
@@ -58,14 +70,23 @@ function App() {
   return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px'}}>
       <svg width = {width} height = {height}>
       <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
+      <g
+      width={boundsWidth}
+      height={boundsHeight}
+      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
       {allCircles}
+      </g>
     </svg>
 
      <svg width = {width} height = {height}>
       <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
+      <g
+      width={boundsWidth}
+      height={boundsHeight}
+      transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
       {allBars}
+       </g>
     </svg>
-
   </div>
   
 
