@@ -83,31 +83,29 @@ function App() {
   <div>
     <h1>Test dashboard</h1>
   </div>
-  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px'}}>
+  <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', gap: '20px'}}>
+    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
       <ScatterPlot
-        width={width}
-        height={height}
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
         circles={allCircles}
         xScale={xScale}
         yScale={yScale}
         MARGIN={MARGIN}
-      />  
-    <BarPlot
-      width={width}
-      height={height}
-      boundsWidth={boundsWidth}
-      boundsHeight={boundsHeight}
-      bars={allBars}
-      bandScale={bandScale}
-      yScale={barYScale}
-      MARGIN={MARGIN}
-    />
-
+      />
+    </div>
+    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
+      <BarPlot
+        boundsWidth={boundsWidth}
+        boundsHeight={boundsHeight}
+        bars={allBars}
+        bandScale={bandScale}
+        yScale={barYScale}
+        MARGIN={MARGIN}
+      />
+    </div>
+    <div style={{flex: '1 1 400px', minWidth: '400px', maxWidth: '420px'}}>
       <LinePlot
-        width={width}
-        height={height}
         boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
         linePath={linePath}
@@ -115,6 +113,7 @@ function App() {
         yScale={yScale}
         MARGIN={MARGIN}
       />
+    </div>
   </div>
   </>
   
