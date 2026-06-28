@@ -5,7 +5,7 @@ import {useDimensions} from '../components/UseDimensions.jsx'
 import {scaleX} from '../components/scaleX.jsx'
 import {scaleY} from '../components/scaleY.jsx'
 
-export const ScatterPlot = ({data, MARGIN}) => {
+export const ScatterPlot = ({data, MARGIN, hoveredIndex, setHoveredIndex}) => {
   const chartRef = useRef(null);
   const {width} = useDimensions(chartRef);
   const height = width;
@@ -17,7 +17,17 @@ export const ScatterPlot = ({data, MARGIN}) => {
   const yScale = scaleY([0, ...data.map(d => d.y)], 0, boundsHeight);
 
   const circles = data.map((d, i) => (
-    <circle key={i} cx={xScale(d.x)} cy={yScale(d.y)} r={6} fill="#21eebeff" />
+    <circle
+      key={i}
+      cx={xScale(d.x)}
+      cy={yScale(d.y)}
+      r={6}
+      fill="#21eebeff"
+      opacity={hoveredIndex === null || hoveredIndex === i ? 1 : 0.2}
+      style={{transition: 'opacity 0.2s', cursor: 'pointer'}}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    />
   ));
 
   return (
@@ -25,7 +35,6 @@ export const ScatterPlot = ({data, MARGIN}) => {
       <BaseScatterPlot
         width={width}
         height={height}
-        boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
         circles={circles}
         xScale={xScale}

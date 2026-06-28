@@ -5,7 +5,7 @@ import {AxisLeft} from '../components/LeftAxis.jsx'
 import {useDimensions} from '../components/UseDimensions.jsx'
 import {scaleY} from '../components/scaleY.jsx'
 
-export const BarPlot = ({data, MARGIN}) => {
+export const BarPlot = ({data, MARGIN, hoveredIndex, setHoveredIndex}) => {
   const chartRef = useRef(null);
   const {width} = useDimensions(chartRef);
   const height = width;
@@ -29,6 +29,10 @@ export const BarPlot = ({data, MARGIN}) => {
       height={boundsHeight - yScale(d.y)}
       rx={12}
       fill="#21eebeff"
+      opacity={hoveredIndex === null || hoveredIndex === i ? 1 : 0.2}
+      style={{transition: 'opacity 0.2s', cursor: 'pointer'}}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
     />
   ));
 
@@ -37,7 +41,6 @@ export const BarPlot = ({data, MARGIN}) => {
       <BaseBarPlot
         width={width}
         height={height}
-        boundsWidth={boundsWidth}
         boundsHeight={boundsHeight}
         bars={bars}
         bandScale={bandScale}
