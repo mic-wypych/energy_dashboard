@@ -1,8 +1,34 @@
 import {AxisLeft} from '../components/LeftAxis.jsx'
 import {AxisBottom} from '../components/BottomAxis.jsx'
+import {useDimensions} from '../components/UseDimensions.jsx'
+import {useRef} from 'react'
 
 
-export function ScatterPlot({width, height, boundsWidth, boundsHeight, circles, xScale, yScale, MARGIN}) {
+export const ScatterPlot = ({boundsWidth, boundsHeight, circles, xScale, yScale, MARGIN}) => {
+  const chartRef = useRef(null);
+  const chartSize = useDimensions(chartRef);
+
+  const height = chartSize.width;
+
+  return (
+    <div ref={chartRef} style={{ width: "100%" }}>
+      <BaseScatterPlot
+        width={chartSize.width}
+        height={height}
+        boundsWidth={boundsWidth}
+        boundsHeight={boundsHeight}
+        circles={circles}
+        xScale={xScale}
+        yScale={yScale}
+        MARGIN={MARGIN}
+      />
+    </div>
+  );
+};
+
+
+
+const BaseScatterPlot = ({width, height, boundsWidth, boundsHeight, circles, xScale, yScale, MARGIN}) => {
 
     return <svg width = {width} height = {height}>
             <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>

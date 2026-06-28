@@ -1,8 +1,31 @@
 import {AxisLeft} from '../components/LeftAxis.jsx'
 import {AxisBottom} from '../components/BottomAxis.jsx'
+import {useDimensions} from '../components/UseDimensions.jsx'
+import {useRef} from 'react'
 
+export const LinePlot = ({boundsWidth, boundsHeight, linePath, xScale, yScale, MARGIN}) => {
+  const chartRef = useRef(null);
+  const chartSize = useDimensions(chartRef);
 
-export function LinePlot({width, height, boundsWidth, boundsHeight, linePath, xScale, yScale, MARGIN}) {
+  const height = chartSize.width;
+
+  return (
+    <div ref={chartRef} style={{ width: "100%" }}>
+      <BaseLinePlot
+        width={chartSize.width}
+        height={height}
+        boundsWidth={boundsWidth}
+        boundsHeight={boundsHeight}
+        linePath={linePath}
+        xScale={xScale}
+        yScale={yScale}
+        MARGIN={MARGIN}
+      />
+    </div>
+  );
+};
+
+const BaseLinePlot = ({width, height, boundsWidth, boundsHeight, linePath, xScale, yScale, MARGIN}) => {
 
     return <svg width = {width} height = {height}>
           <rect width = {width} height = {height} fill = "#FFFFFF" rx = {4}/>
